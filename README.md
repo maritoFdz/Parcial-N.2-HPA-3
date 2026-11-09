@@ -1,4 +1,4 @@
-<img width="389" height="385" alt="image" src="https://github.com/user-attachments/assets/74b39722-cb36-491c-87d6-73f1ef0ce297" /># Parcial N. 2 — MVP por Capas
+# Parcial N. 2 — MVP por Capas
 
 📅 Fecha: 08/11/2026  
 📚 Asignatura: Herramientas de Programacion Aplicadas III  
