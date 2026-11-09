@@ -23,6 +23,9 @@ namespace Entidades
         /// <summary>Estado: '1' activo, '0' inactivo.</summary>
         public string DsEstado { get; set; }
 
+        /// <summary>Rol del usuario: ADMIN o USER.</summary>
+        public string DsRol { get; set; }
+
         public string DsUsuarioCreacion { get; set; }
         public DateTime DtFechaCreacion { get; set; }
         public string DsUsuarioModificacion { get; set; }

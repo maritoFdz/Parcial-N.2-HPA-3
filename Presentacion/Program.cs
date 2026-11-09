@@ -10,8 +10,12 @@ namespace Presentacion
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += (s, e) =>
+                MessageBox.Show(e.Exception.ToString(), "Error no controlado");
 
             IUsuarioService servicio = new N_Usuario();
+            IProductoService productos = new N_Producto();
 
             while (true)
             {
@@ -21,7 +25,7 @@ namespace Presentacion
                 if (login.ShowDialog() != DialogResult.OK)
                     break;
 
-                using var principal = new FrmPrincipal(login.UsuarioAutenticado, servicio);
+                using var principal = new FrmPrincipal(login.UsuarioAutenticado, servicio, productos);
                 Application.Run(principal);
 
                 if (!principal.CerrarSesion)

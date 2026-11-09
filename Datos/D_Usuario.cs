@@ -31,7 +31,8 @@ namespace Datos
                 DsId = fReader.GetString("dsId"),
                 DsUsuario = fReader.GetString("dsUsuario"),
                 DsPassword = fReader.GetString("dsPassword"),
-                DsEstado = fReader.GetString("dsEstado")
+                DsEstado = fReader.GetString("dsEstado"),
+                DsRol = fReader.GetString("dsRol")
             };
         }
 

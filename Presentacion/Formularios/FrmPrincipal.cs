@@ -14,19 +14,26 @@ namespace Presentacion.Formularios
         private readonly MainPresenter _presenter;
         private readonly IUsuarioService _servicio;
         private readonly E_Usuario _usuario;
+        private readonly IProductoService _productos;
 
         /// <summary>Indica si la ventana se cerró para volver al login (cerrar sesión).</summary>
         public bool CerrarSesion { get; private set; }
 
-        public FrmPrincipal(E_Usuario usuario, IUsuarioService servicio)
+        public FrmPrincipal(E_Usuario usuario, IUsuarioService servicio, IProductoService productos)
         {
             InitializeComponent();
 
             _usuario = usuario;
             _servicio = servicio;
+            _productos = productos;
 
             _presenter = new MainPresenter(this, usuario);
             _presenter.Inicializar();
+            if (!_servicio.PuedeRegistrar(_usuario))
+            {
+                btnRegistrar.Visible = false;
+                btnCerrarSesion.Top = btnRegistrar.Top; // sube el botón para no dejar un hueco
+            }
             tmrReloj.Start();
         }
 
@@ -54,12 +61,21 @@ namespace Presentacion.Formularios
 
         private void btnInicio_Click(object sender, EventArgs e)
         {
-            AbrirBienvenida();
+            AbrirInicio();
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            // Se completa en la Fase 8
+            AbrirRegistro();
+        }
+
+        private void AbrirRegistro()
+        {
+            if (ActivarSiExiste(typeof(FrmRegistroUsuario))) return;
+
+            var hijo = new FrmRegistroUsuario { MdiParent = this };
+            new RegistroUsuarioPresenter(hijo, _servicio, _usuario);
+            hijo.Show();
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -70,7 +86,14 @@ namespace Presentacion.Formularios
 
         private void FrmPrincipal_Shown(object sender, EventArgs e)
         {
-            AbrirBienvenida();
+            try
+            {
+                AbrirInicio();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error al abrir Inicio");
+            }
         }
 
         // ---------------- Formularios hijos (MDI) ----------------
@@ -94,6 +117,18 @@ namespace Presentacion.Formularios
                 }
             }
             return false;
+        }
+
+        private void AbrirInicio()
+        {
+            if (ActivarSiExiste(typeof(FrmProductos))) return;
+
+            var hijo = new FrmProductos { MdiParent = this };
+            var presenter = new ProductosPresenter(hijo, _productos, _usuario);
+            presenter.Inicializar();
+
+            hijo.WindowState = FormWindowState.Maximized;
+            hijo.Show();
         }
     }
 }

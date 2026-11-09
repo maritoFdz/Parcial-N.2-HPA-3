@@ -35,21 +35,24 @@
             txtUsuario = new TextBox();
             txtPassword = new TextBox();
             btnIngresar = new Button();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitulo
             // 
             lblTitulo.AutoSize = true;
-            lblTitulo.Location = new Point(273, 42);
+            lblTitulo.Font = new Font("Segoe UI", 11.8956518F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.Location = new Point(102, 23);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(94, 20);
+            lblTitulo.Size = new Size(127, 25);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Iniciar sesión";
             // 
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(284, 134);
+            lblUsuario.Location = new Point(137, 114);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(59, 20);
             lblUsuario.TabIndex = 1;
@@ -58,7 +61,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(273, 195);
+            lblPassword.Location = new Point(126, 175);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(83, 20);
             lblPassword.TabIndex = 2;
@@ -67,15 +70,17 @@
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
+            lblMensaje.Dock = DockStyle.Bottom;
             lblMensaje.ForeColor = Color.Firebrick;
-            lblMensaje.Location = new Point(284, 306);
+            lblMensaje.Location = new Point(0, 315);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(0, 20);
             lblMensaje.TabIndex = 3;
+            lblMensaje.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(256, 157);
+            txtUsuario.Location = new Point(109, 137);
             txtUsuario.MaxLength = 50;
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(120, 26);
@@ -83,7 +88,7 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(256, 218);
+            txtPassword.Location = new Point(109, 198);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(120, 26);
             txtPassword.TabIndex = 5;
@@ -91,7 +96,7 @@
             // 
             // btnIngresar
             // 
-            btnIngresar.Location = new Point(273, 250);
+            btnIngresar.Location = new Point(126, 230);
             btnIngresar.Name = "btnIngresar";
             btnIngresar.Size = new Size(90, 28);
             btnIngresar.TabIndex = 6;
@@ -99,25 +104,37 @@
             btnIngresar.UseVisualStyleBackColor = true;
             btnIngresar.Click += btnIngresar_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(0, 102, 204);
+            panel1.Controls.Add(lblTitulo);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(342, 76);
+            panel1.TabIndex = 7;
+            // 
             // FrmLogin
             // 
             AcceptButton = btnIngresar;
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(342, 335);
             Controls.Add(btnIngresar);
             Controls.Add(txtPassword);
             Controls.Add(txtUsuario);
             Controls.Add(lblMensaje);
             Controls.Add(lblPassword);
             Controls.Add(lblUsuario);
-            Controls.Add(lblTitulo);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Iniciar sesión";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -131,5 +148,6 @@
         private TextBox txtUsuario;
         private TextBox txtPassword;
         private Button btnIngresar;
+        private Panel panel1;
     }
 }

@@ -12,6 +12,7 @@ namespace Negocios.Servicios
     public class N_Usuario : IUsuarioService
     {
         private const int LargoMinimoPassword = 6;
+        private const string RolAdmin = "ADMIN";
         private readonly D_Usuario _datos;
         private readonly IHashService _hash;
         private readonly IVerificarHashService _verificar;
@@ -50,8 +51,18 @@ namespace Negocios.Servicios
         }
 
         /// <inheritdoc />
-        public void Registrar(string usuario, string password, string usuarioCreacion)
+        /// <inheritdoc />
+        public bool PuedeRegistrar(E_Usuario actual)
         {
+            return actual != null && actual.DsRol == RolAdmin;
+        }
+
+        /// <inheritdoc />
+        public void Registrar(E_Usuario actual, string usuario, string password)
+        {
+            if (!PuedeRegistrar(actual))
+                throw new UnauthorizedAccessException("Solo el administrador puede registrar usuarios.");
+
             if (string.IsNullOrWhiteSpace(usuario))
                 throw new ArgumentException("Ingrese el usuario.");
             usuario = usuario.Trim();
@@ -61,7 +72,7 @@ namespace Negocios.Servicios
                 throw new ArgumentException("La contraseña debe tener al menos " + LargoMinimoPassword + " caracteres.");
 
             string hash = _hash.GenerarHash(password);
-            _datos.Registrar(usuario, hash, usuarioCreacion);
+            _datos.Registrar(usuario, hash, actual.DsUsuario);
         }
     }
 }
